@@ -1,0 +1,57 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" version="28.2.5">
+  <diagram name="Strona-1" id="C_A9B3ouAuF3_gXIgaIQ">
+    <mxGraphModel dx="1526" dy="1135" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="j1vJZWeKy-hVwiWI-COs-2" value="HelloController&#xa;GET /rest-api/hello" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;sketch=1;curveFitting=1;jiggle=2;rounded=0;fontFamily=Comic Sans MS;spacingTop=3;spacingLeft=6;spacingBottom=3;spacingRight=6;" parent="1" vertex="1">
+          <mxGeometry x="480" y="180" width="200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="j1vJZWeKy-hVwiWI-COs-3" value="UserService&#xa;getAllUsers()&#xa;createUser()&#xa;deleteUser()" style="whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;sketch=1;curveFitting=1;jiggle=2;rounded=0;fontFamily=Comic Sans MS;spacingTop=3;spacingLeft=6;spacingBottom=3;spacingRight=6;" parent="1" vertex="1">
+          <mxGeometry x="50" y="410" width="250" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="j1vJZWeKy-hVwiWI-COs-5" value="Client/Browser" style="rounded=0;whiteSpace=wrap;html=1;;ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;sketch=1;curveFitting=1;jiggle=2;fontFamily=Comic Sans MS;spacingTop=3;spacingLeft=6;spacingBottom=3;spacingRight=6;" parent="1" vertex="1">
+          <mxGeometry x="105" y="10" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="j1vJZWeKy-hVwiWI-COs-6" value="SQLite Database&#xa;Users table" style="rounded=0;whiteSpace=wrap;html=1;;shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;sketch=1;curveFitting=1;jiggle=2;fontFamily=Comic Sans MS;spacingTop=3;spacingLeft=6;spacingBottom=3;spacingRight=6;" parent="1" vertex="1">
+          <mxGeometry x="100" y="560" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="j1vJZWeKy-hVwiWI-COs-8" value="REST API&#xa;(JSON)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;fontFamily=Comic Sans MS;spacingTop=3;spacingLeft=6;spacingBottom=3;spacingRight=6;" parent="1" source="j1vJZWeKy-hVwiWI-COs-5" target="j1vJZWeKy-hVwiWI-COs-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="j1vJZWeKy-hVwiWI-COs-9" value="SQL queries&#xa;(Exposed DSL)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=1;sketch=1;curveFitting=1;jiggle=2;fontFamily=Comic Sans MS;spacingTop=3;spacingLeft=6;spacingBottom=3;spacingRight=6;" parent="1" source="j1vJZWeKy-hVwiWI-COs-3" target="j1vJZWeKy-hVwiWI-COs-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="j1vJZWeKy-hVwiWI-COs-10" value="Technology Stack&#xa;━━━━━━━━━━━━━━━━&#xa;Backend: Spring Boot 3.4.10, Kotlin 2.2.20, JVM 21, Exposed 0.61.0, SQLite&#xa;Frontend: Thymeleaf, HTMX 1.9.12, Alpine.js 3.14.1, Bulma 1.0.2, ApexCharts&#xa;AI &amp; Processing: OpenAI Java SDK 4.3.0, ONNX Runtime 1.19.2&#xa;File Processing: Apache POI 5.3.0, Apache Commons CSV 1.12.0&#xa;Dev: Gradle, Spring Boot DevTools" style="whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;sketch=1;curveFitting=1;jiggle=2;rounded=0;fontFamily=Comic Sans MS;perimeterSpacing=0;gradientColor=none;spacingTop=3;spacingLeft=6;spacingBottom=3;spacingRight=6;" parent="1" vertex="1">
+          <mxGeometry x="50" y="700" width="450" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="V7PWS_tAFjNdzawZDmgG-1" value="HomeController&#xa;GET /&#xa;GET /home" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;sketch=1;curveFitting=1;jiggle=2;rounded=0;fontFamily=Comic Sans MS;spacingTop=3;spacingLeft=6;spacingBottom=3;spacingRight=6;" vertex="1" parent="1">
+          <mxGeometry x="50" y="180" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="V7PWS_tAFjNdzawZDmgG-2" value="DemoController&#xa;GET /demo&#xa;GET /demo/widget&#xa;GET /demo/users&#xa;POST /demo/users&#xa;DELETE /demo/users/{id}" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;sketch=1;curveFitting=1;jiggle=2;rounded=0;fontFamily=Comic Sans MS;spacingTop=3;spacingLeft=6;spacingBottom=3;spacingRight=6;" vertex="1" parent="1">
+          <mxGeometry x="200" y="180" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="V7PWS_tAFjNdzawZDmgG-3" value="ChartController&#xa;GET /rest-api/chart-data" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;sketch=1;curveFitting=1;jiggle=2;rounded=0;fontFamily=Comic Sans MS;spacingTop=3;spacingLeft=6;spacingBottom=3;spacingRight=6;" vertex="1" parent="1">
+          <mxGeometry x="480" y="260" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="V7PWS_tAFjNdzawZDmgG-4" value="Thymeleaf" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;fontFamily=Comic Sans MS;" edge="1" parent="1" source="j1vJZWeKy-hVwiWI-COs-5" target="V7PWS_tAFjNdzawZDmgG-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V7PWS_tAFjNdzawZDmgG-5" value="HTMX" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;fontFamily=Comic Sans MS;" edge="1" parent="1" source="j1vJZWeKy-hVwiWI-COs-5" target="V7PWS_tAFjNdzawZDmgG-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V7PWS_tAFjNdzawZDmgG-6" value="REST/JSON" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;fontFamily=Comic Sans MS;" edge="1" parent="1" source="j1vJZWeKy-hVwiWI-COs-5" target="V7PWS_tAFjNdzawZDmgG-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="50" />
+              <mxPoint x="430" y="285" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V7PWS_tAFjNdzawZDmgG-7" value="Service calls" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;sketch=1;curveFitting=1;jiggle=2;fontFamily=Comic Sans MS;" edge="1" parent="1" source="V7PWS_tAFjNdzawZDmgG-2" target="j1vJZWeKy-hVwiWI-COs-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

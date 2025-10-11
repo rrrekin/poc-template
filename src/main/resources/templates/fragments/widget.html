@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="content" class="notification is-info is-light">
+        <button class="delete" onclick="this.parentElement.remove()"></button>
+        <p class="has-text-weight-bold">
+            <span class="icon"><i class="fas fa-check-circle"></i></span>
+            Widget Loaded Successfully!
+        </p>
+        <p th:text="${message}">Widget loaded at ...</p>
+        <p class="is-size-7 mt-2">
+            This content was loaded dynamically using HTMX without a full page reload.
+        </p>
+    </div>
+</body>
+</html>

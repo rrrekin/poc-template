@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'POC Template'">POC Template</title>
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bulma/1.0.4/css/bulma.min.css}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .chart-container { height: 400px; }
+        .htmx-indicator { display: none; }
+        .htmx-request .htmx-indicator { display: inline; }
+        .htmx-request.htmx-indicator { display: inline; }
+        .navbar-item.is-active { background-color: rgba(255, 255, 255, 0.1); border-bottom: 3px solid #fff; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <strong>POC Template</strong>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" th:classappend="${activePage == 'home'} ? 'is-active' : ''" href="/">
+                    <span class="icon"><i class="fas fa-home"></i></span>
+                    <span>Home</span>
+                </a>
+                <a class="navbar-item" th:classappend="${activePage == 'demo'} ? 'is-active' : ''" href="/demo">
+                    <span class="icon"><i class="fas fa-flask"></i></span>
+                    <span>Tech Stack Demo</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="section">
+        <div class="container">
+            <div th:replace="${content}"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>POC Template</strong> - Built with Spring Boot, Kotlin, Thymeleaf, HTMX, Alpine.js & Bulma
+            </p>
+        </div>
+    </footer>
+
+    <!-- HTMX -->
+    <script th:src="@{/webjars/htmx.org/2.0.7/dist/htmx.min.js}"></script>
+
+    <!-- Alpine.js -->
+    <script th:src="@{/webjars/alpinejs/3.15.0/dist/cdn.min.js}" defer></script>
+
+    <!-- ApexCharts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</body>
+</html>

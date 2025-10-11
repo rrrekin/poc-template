@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: poc-template
+
+  # Allow bean override for Exposed starter
+  main:
+    allow-bean-definition-overriding: true
+
+  # Thymeleaf configuration
+  thymeleaf:
+    cache: false  # Disable cache for development
+    encoding: UTF-8
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+
+  # Web configuration
+  web:
+    resources:
+      add-mappings: true
+
+  # DevTools configuration
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+  # Database configuration (SQLite)
+  datasource:
+    url: jdbc:sqlite:data/database.db
+    driver-class-name: org.sqlite.JDBC
+
+  # Exposed configuration
+  exposed:
+    generate-ddl: true  # Auto-create tables
+    show-sql: true      # Log SQL statements (development only)
+
+# Server configuration
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# OpenAI API configuration (set via environment variables)
+# OPENAI_API_KEY=your-api-key
+
+# Application-specific properties
+app:
+  name: POC Template
+  description: Flexible Spring Boot + Kotlin template for rapid POC development
+  version: 0.0.1-SNAPSHOT

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(content=~{::content})}">
+<body>
+    <div th:fragment="content">
+        <!-- Hero Section -->
+        <section class="hero is-medium is-primary mb-5">
+            <div class="hero-body">
+                <p class="title">Tech Stack Demo</p>
+                <p class="subtitle">
+                    Interactive demonstration of all integrated technologies
+                </p>
+                <p class="is-size-6">
+                    <span class="icon"><i class="fas fa-clock"></i></span>
+                    Current time: <span th:text="${currentTime}">2025-01-01 12:00:00</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Feature Cards -->
+        <div class="columns is-multiline">
+            <div class="column is-one-third">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="title is-4">
+                            <span class="icon has-text-info"><i class="fas fa-bolt"></i></span>
+                            HTMX Integration
+                        </p>
+                        <p class="subtitle is-6">Dynamic HTML updates without writing JavaScript</p>
+                        <div class="content">
+                            <button class="button is-info"
+                                    hx-get="/demo/widget"
+                                    hx-target="#widget-result"
+                                    hx-indicator="#spinner">
+                                <span>Load Widget</span>
+                                <span class="icon htmx-indicator" id="spinner">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </span>
+                            </button>
+                            <div id="widget-result" class="mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-one-third">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="title is-4">
+                            <span class="icon has-text-success"><i class="fas fa-leaf"></i></span>
+                            Alpine.js
+                        </p>
+                        <p class="subtitle is-6">Lightweight reactive framework</p>
+                        <div class="content" x-data="{ open: false, count: 0 }">
+                            <button class="button is-success" @click="open = !open">
+                                <span x-text="open ? 'Hide' : 'Show'">Toggle</span>
+                            </button>
+                            <div x-show="open" x-transition class="box mt-3">
+                                <p>This content is controlled by Alpine.js!</p>
+                                <button class="button is-small" @click="count++">
+                                    Clicked <span x-text="count">0</span> times
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-one-third">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="title is-4">
+                            <span class="icon has-text-danger"><i class="fas fa-chart-line"></i></span>
+                            ApexCharts
+                        </p>
+                        <p class="subtitle is-6">Interactive data visualization</p>
+                        <div class="content">
+                            <button class="button is-danger" onclick="loadChart()">
+                                Load Chart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="box mt-5">
+            <h2 class="title is-3">Sample Chart</h2>
+            <div id="chart" class="chart-container"></div>
+        </div>
+
+        <!-- Database Demo Section -->
+        <div class="box mt-5" x-data="{ formVisible: false }">
+            <h2 class="title is-3">
+                <span class="icon has-text-primary"><i class="fas fa-database"></i></span>
+                SQLite Database Demo (Exposed)
+            </h2>
+            <p class="subtitle is-6">Live CRUD operations with HTMX + Exposed ORM</p>
+
+            <!-- Add User Form -->
+            <div class="mb-4">
+                <button class="button is-primary" @click="formVisible = !formVisible">
+                    <span class="icon"><i class="fas fa-plus"></i></span>
+                    <span x-text="formVisible ? 'Cancel' : 'Add New User'">Add New User</span>
+                </button>
+            </div>
+
+            <div x-show="formVisible" x-transition class="box has-background-light mb-4">
+                <form hx-post="/demo/users"
+                      hx-target="#users-table"
+                      @htmx:after-request="formVisible = false; $event.target.reset()">
+                    <div class="field is-horizontal">
+                        <div class="field-body">
+                            <div class="field">
+                                <p class="control is-expanded has-icons-left">
+                                    <input class="input" type="text" name="name" placeholder="Name" required>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="field">
+                                <p class="control is-expanded has-icons-left">
+                                    <input class="input" type="email" name="email" placeholder="Email" required>
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="field">
+                                <p class="control">
+                                    <button class="button is-primary" type="submit">
+                                        <span class="icon"><i class="fas fa-check"></i></span>
+                                        <span>Create</span>
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Users Table -->
+            <div id="users-table" hx-get="/demo/users" hx-trigger="load">
+                <div class="has-text-centered">
+                    <span class="icon is-large">
+                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                    </span>
+                    <p>Loading users...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="box mt-5">
+            <h2 class="title is-3">Included Technologies</h2>
+            <div class="content">
+                <div class="columns is-multiline">
+                    <div class="column is-half">
+                        <h4 class="title is-5">Backend</h4>
+                        <ul>
+                            <li><strong>Spring Boot 3.4.10</strong> - Application framework</li>
+                            <li><strong>Kotlin 2.2.20</strong> - Programming language</li>
+                            <li><strong>Thymeleaf</strong> - Server-side templating</li>
+                        </ul>
+                    </div>
+                    <div class="column is-half">
+                        <h4 class="title is-5">Frontend</h4>
+                        <ul>
+                            <li><strong>HTMX</strong> - Dynamic HTML updates</li>
+                            <li><strong>Alpine.js</strong> - Client-side reactivity</li>
+                            <li><strong>Bulma</strong> - CSS framework</li>
+                            <li><strong>ApexCharts</strong> - Data visualization</li>
+                        </ul>
+                    </div>
+                    <div class="column is-half">
+                        <h4 class="title is-5">Database</h4>
+                        <ul>
+                            <li><strong>Exposed 1.0.0-rc-1</strong> - Kotlin SQL DSL</li>
+                            <li><strong>SQLite</strong> - Embedded database</li>
+                        </ul>
+                    </div>
+                    <div class="column is-half">
+                        <h4 class="title is-5">AI Integration</h4>
+                        <ul>
+                            <li><strong>OpenAI Java SDK</strong> - OpenAI API client</li>
+                            <li><strong>ONNX Runtime</strong> - Local embeddings</li>
+                        </ul>
+                    </div>
+                    <div class="column is-half">
+                        <h4 class="title is-5">File Processing</h4>
+                        <ul>
+                            <li><strong>Apache POI</strong> - Excel files</li>
+                            <li><strong>Commons CSV</strong> - CSV parsing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Loading Script -->
+        <script>
+            let chartInstance = null;
+
+            async function loadChart() {
+                const response = await fetch('/rest-api/chart-data');
+                const data = await response.json();
+
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+
+                const options = {
+                    series: data.series,
+                    chart: {
+                        type: 'line',
+                        height: 350,
+                        toolbar: { show: true }
+                    },
+                    dataLabels: { enabled: false },
+                    stroke: { curve: 'smooth', width: 2 },
+                    xaxis: {
+                        categories: data.categories
+                    },
+                    title: {
+                        text: 'Sample Data Visualization',
+                        align: 'left'
+                    },
+                    colors: ['#667eea', '#764ba2']
+                };
+
+                chartInstance = new ApexCharts(document.querySelector("#chart"), options);
+                chartInstance.render();
+            }
+
+            // Auto-load chart on page load
+            window.addEventListener('DOMContentLoaded', loadChart);
+        </script>
+    </div>
+</body>
+</html>

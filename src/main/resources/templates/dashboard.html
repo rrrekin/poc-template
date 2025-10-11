@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: html(content=~{::content})}">
+<body>
+    <div th:fragment="content">
+        <!-- Hero Section with Hackathon Meme -->
+        <section class="hero is-large is-primary">
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <p class="title is-1">POC Template</p>
+                    <p class="subtitle is-3">
+                        Spring Boot + Kotlin + HTMX + Alpine.js
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meme Section -->
+        <div class="section">
+            <div class="container">
+                <div class="box has-text-centered">
+                    <h2 class="title is-3 mb-5">The Reality of Hackathons</h2>
+                    <figure class="image">
+                        <img src="https://i.programmerhumor.io/2025/03/452097848c69b942cee924f56272a22d.jpeg"
+                             alt="During and After Hackathon Meme"
+                             style="max-width: 800px; margin: 0 auto;">
+                    </figure>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="columns is-centered mt-6">
+                    <div class="column is-half">
+                        <div class="box has-background-info-light">
+                            <h3 class="title is-4 has-text-centered">Ready to Build?</h3>
+                            <div class="buttons is-centered">
+                                <a href="/demo" class="button is-primary is-large">
+                                    <span class="icon">
+                                        <i class="fas fa-rocket"></i>
+                                    </span>
+                                    <span>Explore Tech Stack Demo</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Features -->
+                <div class="columns is-multiline mt-5">
+                    <div class="column is-one-quarter">
+                        <div class="has-text-centered">
+                            <span class="icon is-large has-text-info">
+                                <i class="fas fa-bolt fa-3x"></i>
+                            </span>
+                            <p class="title is-5 mt-3">Fast Development</p>
+                            <p class="subtitle is-6">Hot reload with DevTools</p>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="has-text-centered">
+                            <span class="icon is-large has-text-success">
+                                <i class="fas fa-database fa-3x"></i>
+                            </span>
+                            <p class="title is-5 mt-3">SQLite Ready</p>
+                            <p class="subtitle is-6">Exposed ORM included</p>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="has-text-centered">
+                            <span class="icon is-large has-text-warning">
+                                <i class="fas fa-magic fa-3x"></i>
+                            </span>
+                            <p class="title is-5 mt-3">No Build Step</p>
+                            <p class="subtitle is-6">WebJars for frontend</p>
+                        </div>
+                    </div>
+                    <div class="column is-one-quarter">
+                        <div class="has-text-centered">
+                            <span class="icon is-large has-text-danger">
+                                <i class="fas fa-code fa-3x"></i>
+                            </span>
+                            <p class="title is-5 mt-3">Modern Stack</p>
+                            <p class="subtitle is-6">Kotlin + HTMX + Alpine</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

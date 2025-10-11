@@ -1,0 +1,119 @@
+# Gradle Version Catalog
+# Centralized dependency management for the POC Template project
+[versions]
+alpinejs = "3.15.0"
+# Apache Libraries
+apache-poi = "5.4.1"
+bulma = "1.0.4"
+commons-csv = "1.14.1"
+# Database
+exposed = "0.61.0"
+# Build Tools
+gradle-versions-plugin = "0.53.0"
+htmx = "2.0.7"
+# Core
+kotlin = "2.2.20"
+# Kotlin Coroutines
+kotlinx-coroutines = "1.10.2"
+onnx-runtime = "1.23.1"
+# AI & ML
+openai-java = "4.3.0"
+spring-boot = "3.5.6"
+spring-dependency-management = "1.1.7"
+sqlite-jdbc = "3.50.3.0"
+version-catalog-update = "1.0.1"
+# WebJars / Frontend
+webjars-locator = "0.59"
+
+[libraries]
+# Apache POI (Excel)
+apache-poi = { module = "org.apache.poi:poi", version.ref = "apache-poi" }
+apache-poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "apache-poi" }
+# Apache Commons CSV
+commons-csv = { module = "org.apache.commons:commons-csv", version.ref = "commons-csv" }
+# Exposed (Kotlin SQL Framework)
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+exposed-java-time = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+exposed-spring-boot-starter = { module = "org.jetbrains.exposed:exposed-spring-boot-starter", version.ref = "exposed" }
+# Jackson
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
+# Testing
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+# Kotlin
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version.ref = "kotlinx-coroutines" }
+onnx-runtime = { module = "com.microsoft.onnxruntime:onnxruntime", version.ref = "onnx-runtime" }
+# AI & ML
+openai-java = { module = "com.openai:openai-java", version.ref = "openai-java" }
+spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+# Spring Boot
+spring-boot-starter-thymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+# Database Drivers
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite-jdbc" }
+webjars-alpinejs = { module = "org.webjars.npm:alpinejs", version.ref = "alpinejs" }
+webjars-bulma = { module = "org.webjars.npm:bulma", version.ref = "bulma" }
+webjars-htmx = { module = "org.webjars.npm:htmx.org", version.ref = "htmx" }
+# WebJars (Frontend Libraries)
+webjars-locator-core = { module = "org.webjars:webjars-locator-core", version.ref = "webjars-locator" }
+
+[bundles]
+# AI & ML libraries
+ai = [
+    "onnx-runtime",
+    "openai-java",
+]
+# Apache file processing
+apache = [
+    "apache-poi",
+    "apache-poi-ooxml",
+    "commons-csv",
+]
+# Exposed database framework
+exposed = [
+    "exposed-core",
+    "exposed-dao",
+    "exposed-java-time",
+    "exposed-jdbc",
+    "exposed-spring-boot-starter",
+]
+# Kotlin runtime
+kotlin = [
+    "kotlin-reflect",
+    "kotlinx-coroutines-core",
+    "kotlinx-coroutines-reactor",
+]
+# Spring Boot essentials
+spring-boot = [
+    "jackson-module-kotlin",
+    "spring-boot-starter-thymeleaf",
+    "spring-boot-starter-web",
+]
+# Testing
+testing = [
+    "kotlin-test-junit5",
+    "spring-boot-starter-test",
+]
+# WebJars frontend libraries
+webjars = [
+    "webjars-alpinejs",
+    "webjars-bulma",
+    "webjars-htmx",
+    "webjars-locator-core",
+]
+
+[plugins]
+# Build tools
+gradle-versions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions-plugin" }
+# Kotlin
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+# Spring Boot
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "version-catalog-update" }
