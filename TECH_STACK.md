@@ -118,44 +118,60 @@ This is a flexible template project designed for rapid POC (Proof of Concept) de
 
 ## Database
 
-### Exposed 0.61.0
-**Purpose:** Kotlin-first SQL framework for database operations
+### Spring Data JDBC
+**Purpose:** Repository-based database operations with Spring-managed transactions
 
 **Why chosen:**
-- Lightweight, Kotlin-idiomatic DSL for SQL
-- Type-safe queries with compile-time checking
-- No code generation required
-- Direct SQL control without ORM complexity
+- Part of Spring Data - familiar repository pattern
+- No ORM complexity (unlike JPA) - direct SQL mapping
+- Auto-implements CRUD operations via `CrudRepository`
+- Derived query methods from method names
+- Spring-managed transactions with `@Transactional`
 - Perfect for POC rapid development
 - Easy to switch to other databases (PostgreSQL, MySQL, etc.)
 
 **Key features:**
-- DSL and DAO APIs
-- Schema creation and migrations
-- Transaction management (Spring-integrated)
-- Support for complex queries
-- Java Time API integration
+- `CrudRepository` interface for standard CRUD operations
+- Entity classes with `@Table` and `@Id` annotations
+- Derived query methods (e.g., `findByNameContaining`)
+- `@Query` annotation for custom SQL
+- Automatic resource management
+- Spring transaction integration
+- SQL initialization via `schema.sql` and `data.sql`
 
 **Usage example:**
 ```kotlin
-// Define table
-object Users : Table("users") {
-    val id = integer("id").autoIncrement()
-    val name = varchar("name", 100)
-    val email = varchar("email", 255)
-    val createdAt = datetime("created_at").defaultExpression(CurrentDateTime)
-    override val primaryKey = PrimaryKey(id)
+// Define entity class
+@Table("users")
+data class User(
+    @Id val id: Int? = null,
+    val name: String,
+    val email: String,
+    val createdAt: LocalDateTime? = null
+)
+
+// Repository interface - Spring auto-implements
+interface UserRepository : CrudRepository<User, Int> {
+    fun findByNameContaining(name: String): List<User>
 }
 
-// Query
-transaction {
-    Users.insert {
-        it[name] = "Ford Prefect"
-        it[email] = "ford@hitchhikers.guide"
-    }
+// Service with transactions
+@Service
+class UserService(private val userRepository: UserRepository) {
+    fun getAllUsers(): List<User> = userRepository.findAll().toList()
 
-    Users.selectAll().forEach { row ->
-        println("${row[Users.name]}: ${row[Users.email]}")
+    fun getUserById(id: Int): User? = userRepository.findByIdOrNull(id)
+
+    @Transactional
+    fun createUser(name: String, email: String): User = userRepository.save(
+        User(name = name, email = email, createdAt = LocalDateTime.now())
+    )
+
+    @Transactional
+    fun deleteUser(id: Int): Boolean {
+        if (!userRepository.existsById(id)) return false
+        userRepository.deleteById(id)
+        return true
     }
 }
 ```
@@ -172,8 +188,10 @@ transaction {
 - Can migrate to PostgreSQL/MySQL later
 
 **Configuration:**
-- Database file: `data/template.db`
+- Database file: `data/database.db`
 - Auto-created on first run
+- Schema initialized via `schema.sql`
+- Seed data loaded via `data.sql`
 - Portable across environments
 
 **When to switch:**
@@ -301,36 +319,15 @@ transaction {
         <version>1.12.0</version>
     </dependency>
 
-    <!-- Exposed (Kotlin SQL Framework) + SQLite -->
+    <!-- Spring Data JDBC + SQLite -->
     <dependency>
-        <groupId>org.jetbrains.exposed</groupId>
-        <artifactId>exposed-core</artifactId>
-        <version>0.61.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.jetbrains.exposed</groupId>
-        <artifactId>exposed-dao</artifactId>
-        <version>0.61.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.jetbrains.exposed</groupId>
-        <artifactId>exposed-jdbc</artifactId>
-        <version>0.61.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.jetbrains.exposed</groupId>
-        <artifactId>exposed-java-time</artifactId>
-        <version>0.61.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.jetbrains.exposed</groupId>
-        <artifactId>exposed-spring-boot-starter</artifactId>
-        <version>0.61.0</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jdbc</artifactId>
     </dependency>
     <dependency>
         <groupId>org.xerial</groupId>
         <artifactId>sqlite-jdbc</artifactId>
-        <version>3.47.2.0</version>
+        <version>3.51.1.0</version>
     </dependency>
 
     <!-- WebJars (Optional - can use CDN instead) -->
@@ -413,14 +410,15 @@ class DashboardController {
 
 ### Quick POC Development Pattern
 
-1. **Define data model** (Exposed Table + data class)
-2. **Create service layer** with CRUD operations
-3. **Create controller** with endpoints
-4. **Build Thymeleaf template** with Bulma components
-5. **Add HTMX** for dynamic interactions
-6. **Sprinkle Alpine.js** for client-side UI logic
-7. **Integrate ApexCharts** for visualizations
-8. **Connect AI/file processing** as needed
+1. **Define schema** (`schema.sql`) and entity class with `@Table`, `@Id`
+2. **Create repository interface** extending `CrudRepository`
+3. **Create service layer** with `@Transactional` operations
+4. **Create controller** with endpoints
+5. **Build Thymeleaf template** with Bulma components
+6. **Add HTMX** for dynamic interactions
+7. **Sprinkle Alpine.js** for client-side UI logic
+8. **Integrate ApexCharts** for visualizations
+9. **Connect AI/file processing** as needed
 
 ### No Build Step Required
 
@@ -473,7 +471,7 @@ class DashboardController {
 - [Bulma Documentation](https://bulma.io/documentation/)
 - [ApexCharts Documentation](https://apexcharts.com/docs/)
 - [OpenAI API Documentation](https://platform.openai.com/docs/)
-- [Exposed Documentation](https://www.jetbrains.com/help/exposed/get-started-with-exposed.html)
+- [Spring Data JDBC Documentation](https://docs.spring.io/spring-data/jdbc/reference/)
 
 ---
 

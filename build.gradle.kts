@@ -46,8 +46,7 @@ dependencies {
 	// WebJars (Frontend Libraries)
 	implementation(libs.bundles.webjars)
 
-	// Exposed (Kotlin SQL Framework) + SQLite
-	implementation(libs.bundles.exposed)
+	// SQLite JDBC Driver
 	implementation(libs.sqlite.jdbc)
 
 	// Testing

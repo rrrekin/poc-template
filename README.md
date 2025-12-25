@@ -5,7 +5,7 @@ A flexible Spring Boot + Kotlin template for rapid Proof of Concept development.
 ## Features
 
 - 🚀 **Modern Stack** - Spring Boot 3.5.6, Kotlin 2.2.20, JVM 21
-- 🗄️ **Database Ready** - Exposed (Kotlin SQL DSL) + SQLite embedded database
+- 🗄️ **Database Ready** - Spring Data JDBC + SQLite embedded database
 - 🎨 **Server-Side Rendering** - Thymeleaf with HTMX for dynamic updates
 - 💫 **Reactive UI** - Alpine.js for client-side interactivity
 - 📊 **Data Visualization** - ApexCharts integration
@@ -81,7 +81,7 @@ src/
 - **JVM 21** - Runtime environment
 
 ### Database
-- **Exposed 0.61.0** - Kotlin SQL DSL framework
+- **Spring Data JDBC** - Repository-based database operations
 - **SQLite** - Embedded SQL database
 
 ### Frontend
@@ -150,7 +150,7 @@ The included dashboard demonstrates:
 - Click **"Load Chart"** to refresh data
 - Responsive and interactive charts
 
-### 4. Database Demo (Exposed + SQLite)
+### 4. Database Demo (Spring JDBC + SQLite)
 - Live CRUD operations with HTMX
 - Click **"Add New User"** to create database entries
 - Delete users with trash icon
@@ -277,59 +277,70 @@ class OpenAIService {
 }
 ```
 
-## Database Usage (Exposed + SQLite)
+## Database Usage (Spring Data JDBC + SQLite)
 
-### Define Table and Model
+### Define Schema
+
+Located in `src/main/resources/schema.sql`:
+
+```sql
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    created_at TEXT DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_users_name ON users(name);
+```
+
+### Define Entity Class
 
 Located in `com.example.persistence` package:
 
 ```kotlin
-// Table definition using Exposed DSL
-object Users : Table("users") {
-    val id = integer("id").autoIncrement()
-    val name = varchar("name", 100)
-    val email = varchar("email", 255)
-    val createdAt = datetime("created_at").defaultExpression(CurrentDateTime)
-    override val primaryKey = PrimaryKey(id)
-}
-
-// Data class for application use
+@Table("users")
 data class User(
-    val id: Int? = null,
+    @Id val id: Int? = null,
     val name: String,
     val email: String,
     val createdAt: LocalDateTime? = null
 )
 ```
 
-### Create Service with CRUD Operations
+### Create Repository Interface
+
+Located in `com.example.persistence` package:
+
+```kotlin
+interface UserRepository : CrudRepository<User, Int> {
+    fun findByNameContaining(name: String): List<User>
+}
+```
+
+Spring Data JDBC auto-implements CRUD methods (`save`, `findById`, `findAll`, `deleteById`, etc.) and derived query methods.
+
+### Create Service with Transaction Management
 
 Located in `com.example.domain` package:
 
 ```kotlin
 @Service
-class UserService {
-    fun getAllUsers(): List<User> = transaction {
-        Users.selectAll().map { row ->
-            User(
-                id = row[Users.id],
-                name = row[Users.name],
-                email = row[Users.email],
-                createdAt = row[Users.createdAt]
-            )
-        }
-    }
+class UserService(private val userRepository: UserRepository) {
+    fun getAllUsers(): List<User> = userRepository.findAll().toList()
 
-    fun createUser(name: String, email: String): User = transaction {
-        val id = Users.insert {
-            it[Users.name] = name
-            it[Users.email] = email
-        } get Users.id
-        User(id = id, name = name, email = email)
-    }
+    fun getUserById(id: Int): User? = userRepository.findByIdOrNull(id)
 
-    fun deleteUser(id: Int): Boolean = transaction {
-        Users.deleteWhere { Users.id eq id } > 0
+    @Transactional
+    fun createUser(name: String, email: String): User = userRepository.save(
+        User(name = name, email = email, createdAt = LocalDateTime.now())
+    )
+
+    @Transactional
+    fun deleteUser(id: Int): Boolean {
+        if (!userRepository.existsById(id)) return false
+        userRepository.deleteById(id)
+        return true
     }
 }
 ```
@@ -362,14 +373,16 @@ Database is auto-configured via `application.yml`:
 ```yaml
 spring:
   datasource:
-    url: jdbc:sqlite:data/template.db
+    url: jdbc:sqlite:data/database.db
     driver-class-name: org.sqlite.JDBC
-  exposed:
-    generate-ddl: true  # Auto-create tables
-    show-sql: true      # Log SQL (development)
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
 ```
 
-Database file: `data/template.db` (auto-created on first run)
+Database file: `data/database.db` (auto-created on first run)
 
 ### Switching Databases
 
@@ -552,7 +565,7 @@ spring:
 - [Bulma Documentation](https://bulma.io/documentation/)
 - [ApexCharts Documentation](https://apexcharts.com/docs/)
 - [OpenAI API Documentation](https://platform.openai.com/docs/)
-- [Exposed Documentation](https://www.jetbrains.com/help/exposed/get-started-with-exposed.html)
+- [Spring Data JDBC Documentation](https://docs.spring.io/spring-data/jdbc/reference/)
 
 ## Architecture Documentation
 

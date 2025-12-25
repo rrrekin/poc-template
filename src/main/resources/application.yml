@@ -2,10 +2,6 @@ spring:
   application:
     name: poc-template
 
-  # Allow bean override for Exposed starter
-  main:
-    allow-bean-definition-overriding: true
-
   # Thymeleaf configuration
   thymeleaf:
     cache: false  # Disable cache for development
@@ -26,15 +22,17 @@ spring:
     livereload:
       enabled: true
 
-  # Database configuration (SQLite)
+  # Database configuration (SQLite with Spring Data JDBC)
   datasource:
     url: jdbc:sqlite:data/database.db
     driver-class-name: org.sqlite.JDBC
 
-  # Exposed configuration
-  exposed:
-    generate-ddl: true  # Auto-create tables
-    show-sql: true      # Log SQL statements (development only)
+  # Spring JDBC initialization (mode: always required for SQLite - not recognized as embedded)
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
 
 # Server configuration
 server:
@@ -49,6 +47,7 @@ logging:
     root: INFO
     com.example: DEBUG
     org.springframework.web: INFO
+    org.springframework.jdbc: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 

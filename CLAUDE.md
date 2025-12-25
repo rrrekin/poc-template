@@ -6,8 +6,8 @@
 - **Spring Boot 3.5.6** - Application framework
 - **Kotlin 2.2.20** - Programming language
 - **JVM 21** - Runtime (LTS)
-- **Exposed 0.61.0** - Kotlin SQL DSL for database operations
-- **SQLite** - Embedded database (file: `data/template.db`)
+- **Spring Data JDBC** - Repository-based database operations with Spring-managed transactions
+- **SQLite** - Embedded database (file: `data/database.db`)
 
 **Frontend:**
 - **Thymeleaf** - Server-side HTML templating
@@ -71,17 +71,20 @@ src/main/resources/
 
 ## Quick Development Pattern
 
-1. Define database table in `persistence/` using Exposed DSL
-2. Create service in `domain/` with business logic
-3. Create controller in `web/` (pages) or `rest/` (API)
-4. Create Thymeleaf template in `resources/templates/`
-5. Use HTMX for dynamic updates, Alpine.js for UI state
-6. Access at http://localhost:8080
+1. Define schema in `resources/schema.sql` and entity class in `persistence/` with `@Table`, `@Id`
+2. Create repository interface in `persistence/` extending `CrudRepository`
+3. Create service in `domain/` with business logic and `@Transactional`
+4. Create controller in `web/` (pages) or `rest/` (API)
+5. Create Thymeleaf template in `resources/templates/`
+6. Use HTMX for dynamic updates, Alpine.js for UI state
+7. Access at http://localhost:8080
 
 ## Configuration
 
 - **Port:** 8080 (configurable in `application.yml`)
-- **Database:** `data/template.db` (auto-created)
+- **Database:** `data/database.db` (auto-created via Spring JDBC init)
+- **Schema:** `resources/schema.sql` (executed on startup)
+- **Seed data:** `resources/data.sql` (executed on startup)
 - **OpenAI API Key:** Set `OPENAI_API_KEY` environment variable
 - **DevTools:** Enabled (auto-restart on code changes)
 
@@ -119,13 +122,17 @@ Code should be concise and readable with minimum comments, just to understand no
 - No javadoc/kdoc unless it brings value - avoid trivial documentation
 - Comments only for non-obvious logic; code should be self-documenting
 
-### Database Conventions (Exposed/SQLite)
+### Database Conventions (Spring Data JDBC/SQLite)
 
+- Define schema in `resources/schema.sql`, seed data in `resources/data.sql`
 - Use snake_case for table and column names
-- Use INTEGER sequences for primary keys where appropriate
+- Use INTEGER PRIMARY KEY AUTOINCREMENT for primary keys
 - Add indexes for frequently queried columns and foreign keys
 - Use TEXT columns for strings (SQLite doesn't distinguish from VARCHAR)
-- Meaningful names for constraints for easier debugging
+- Create entity classes with `@Table` and `@Id` annotations
+- Create repository interfaces extending `CrudRepository<Entity, IdType>`
+- Use derived query methods (e.g., `findByNameContaining`) for custom queries
+- Use `@Transactional` on service methods that modify data
 
 ### Testing Guidelines
 
@@ -138,12 +145,12 @@ Code should be concise and readable with minimum comments, just to understand no
 ### Best Practices
 
 **Transaction Management:**
-- Mark service methods with `@Transactional` when multiple DB operations needed
-- Ensures atomicity and rollback on errors
+- Mark service methods with `@Transactional` when DB modifications needed
+- Spring manages connection and rollback on errors automatically
 
 **SQL Injection Prevention:**
 - Never concatenate user input into queries
-- Use Exposed DSL safely (it's parameterized by default)
+- Use `JdbcTemplate` parameterized queries (? placeholders)
 
 **Resource Management:**
 - Use `use {}` blocks for auto-closing resources (files, streams, connections)
