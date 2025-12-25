@@ -27,13 +27,12 @@ spring:
     url: jdbc:sqlite:data/database.db
     driver-class-name: org.sqlite.JDBC
 
-  # Spring JDBC initialization
+  # Spring JDBC initialization (mode: always required for SQLite - not recognized as embedded)
   sql:
     init:
       mode: always
       schema-locations: classpath:schema.sql
       data-locations: classpath:data.sql
-      continue-on-error: true
 
 # Server configuration
 server:

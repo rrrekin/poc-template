@@ -332,7 +332,9 @@ class UserService(private val userRepository: UserRepository) {
     fun getUserById(id: Int): User? = userRepository.findByIdOrNull(id)
 
     @Transactional
-    fun createUser(name: String, email: String): User = userRepository.save(User(name = name, email = email))
+    fun createUser(name: String, email: String): User = userRepository.save(
+        User(name = name, email = email, createdAt = LocalDateTime.now())
+    )
 
     @Transactional
     fun deleteUser(id: Int): Boolean {
