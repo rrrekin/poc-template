@@ -6,8 +6,6 @@ alpinejs = "3.15.3"
 apache-poi = "5.5.1"
 bulma = "1.0.4"
 commons-csv = "1.14.1"
-# Database
-exposed = "0.61.0"
 # Build Tools
 gradle-versions-plugin = "0.53.0"
 htmx = "2.0.8"
@@ -31,12 +29,6 @@ apache-poi = { module = "org.apache.poi:poi", version.ref = "apache-poi" }
 apache-poi-ooxml = { module = "org.apache.poi:poi-ooxml", version.ref = "apache-poi" }
 # Apache Commons CSV
 commons-csv = { module = "org.apache.commons:commons-csv", version.ref = "commons-csv" }
-# Exposed (Kotlin SQL Framework)
-exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
-exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
-exposed-java-time = { module = "org.jetbrains.exposed:exposed-java-time", version.ref = "exposed" }
-exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
-exposed-spring-boot-starter = { module = "org.jetbrains.exposed:exposed-spring-boot-starter", version.ref = "exposed" }
 # Jackson
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
 # Testing
@@ -50,6 +42,7 @@ onnx-runtime = { module = "com.microsoft.onnxruntime:onnxruntime", version.ref =
 # AI & ML
 openai-java = { module = "com.openai:openai-java", version.ref = "openai-java" }
 spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+spring-boot-starter-data-jdbc = { module = "org.springframework.boot:spring-boot-starter-data-jdbc" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 # Spring Boot
 spring-boot-starter-thymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf" }
@@ -74,14 +67,6 @@ apache = [
     "apache-poi-ooxml",
     "commons-csv",
 ]
-# Exposed database framework
-exposed = [
-    "exposed-core",
-    "exposed-dao",
-    "exposed-java-time",
-    "exposed-jdbc",
-    "exposed-spring-boot-starter",
-]
 # Kotlin runtime
 kotlin = [
     "kotlin-reflect",
@@ -91,6 +76,7 @@ kotlin = [
 # Spring Boot essentials
 spring-boot = [
     "jackson-module-kotlin",
+    "spring-boot-starter-data-jdbc",
     "spring-boot-starter-thymeleaf",
     "spring-boot-starter-web",
 ]
