@@ -8,7 +8,7 @@ bulma = "1.0.4"
 commons-csv = "1.14.1"
 # Build Tools
 gradle-versions-plugin = "0.53.0"
-htmx = "2.0.8"
+htmx = "4.0.0"
 # Core
 kotlin = "2.3.0"
 # Kotlin Coroutines
