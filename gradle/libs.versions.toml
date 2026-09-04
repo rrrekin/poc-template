@@ -1,25 +1,25 @@
 # Gradle Version Catalog
 # Centralized dependency management for the POC Template project
 [versions]
-alpinejs = "3.15.3"
+alpinejs = "3.16.3"
 # Apache Libraries
 apache-poi = "5.5.1"
 bulma = "1.0.4"
 commons-csv = "1.14.1"
 # Build Tools
-gradle-versions-plugin = "0.53.0"
-htmx = "2.0.8"
+gradle-versions-plugin = "0.61.0"
+htmx = "2.0.10"
 # Core
-kotlin = "2.3.0"
+kotlin = "2.4.10"
 # Kotlin Coroutines
-kotlinx-coroutines = "1.10.2"
-onnx-runtime = "1.23.2"
+kotlinx-coroutines = "1.11.0"
+onnx-runtime = "1.29.0"
 # AI & ML
-openai-java = "4.13.0"
-spring-boot = "3.5.9"
+openai-java = "4.58.0"
+spring-boot = "3.5.16"
 spring-dependency-management = "1.1.7"
-sqlite-jdbc = "3.51.1.0"
-version-catalog-update = "1.0.1"
+sqlite-jdbc = "3.53.4.0"
+version-catalog-update = "1.1.1"
 # WebJars / Frontend
 webjars-locator = "0.59"
 
