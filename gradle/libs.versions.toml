@@ -3,7 +3,7 @@
 [versions]
 alpinejs = "3.15.3"
 # Apache Libraries
-apache-poi = "5.5.1"
+apache-poi = "6.0.0"
 bulma = "1.0.4"
 commons-csv = "1.14.1"
 # Build Tools
